@@ -47,21 +47,21 @@ class CharDataset(Dataset):
         return x, y
 
 
-block_size = 400
-train_text = [i.strip() for i in open('./data/1.txt', 'r').readlines()]
+block_size = 400 # max([len(i) for i in data])
+train_text = [i.strip() for i in open('./data/train.txt', 'r').readlines()]
 # test_text  = None
 train_dataset = CharDataset(train_text, block_size)
 # test_dataset  = None
 
 
 mconf = GPTConfig(train_dataset.vocab_size, train_dataset.block_size,
-                  n_layer=1, n_head=1, n_embd=4)
+                  n_layer=12, n_head=12, n_embd=768) # GPT-1 config
 model = GPT(mconf)
 
 
-tconf = TrainerConfig(max_epochs=5, batch_size=64, learning_rate=1e-2,
-                      lr_decay=True, warmup_tokens=512*20, final_tokens=2*len(train_dataset)*block_size,)
-                    #   ckpt_path='./ckpt/model.bin')
+tconf = TrainerConfig(max_epochs=100, batch_size=64, learning_rate=1e-2,
+                      lr_decay=True, warmup_tokens=512*20, final_tokens=2*len(train_dataset)*block_size,
+                      ckpt_path='./ckpt/model.bin')
 trainer = Trainer(model, train_dataset, None, tconf)
 
 trainer.train()
