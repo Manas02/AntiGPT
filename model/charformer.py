@@ -1,3 +1,5 @@
+# Charformer from https://github.com/lucidrains/charformer-pytorch
+
 import math
 from math import gcd
 import functools
