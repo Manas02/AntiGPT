@@ -27,7 +27,7 @@ set_seed(42)
 
 class CharDataset(Dataset):
     def __init__(self, data, block_size):
-        chars = ['A', 'T', 'G', 'C', 'N', '<pad>']
+        chars = ["A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y","<pad>"]
         data_size, vocab_size = len(data), len(chars)
         print('Data has %d sequences \n%d unique characters.' % (data_size, vocab_size))        
         self.stoi = {ch:i for i,ch in enumerate(chars)}
